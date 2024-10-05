@@ -1,7 +1,9 @@
 // db.js
-const pgp = require('pg-promise')();
-const connectionString = process.env.NEON_DATABASE_URL; // Conectando-se usando a variável de ambiente
+const { Pool } = require('pg');
 
-const db = pgp(connectionString);
+// Crie um pool de conexão
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL, // Defina sua URL de conexão aqui ou use uma variável de ambiente
+});
 
-module.exports = db;
+module.exports = pool;

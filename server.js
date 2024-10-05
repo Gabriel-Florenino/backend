@@ -1,25 +1,12 @@
 // server.js
 const express = require('express');
-const dotenv = require('dotenv');
-const mainRoutes = require('./routes/mainRoutes');
-
-dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+const politicosRoutes = require('./politicosRoutes');
 
-// Middleware para analisar JSON
-app.use(express.json());
+app.use(express.json()); // Para fazer o parse do corpo das requisições JSON
+app.use('/politicos', politicosRoutes); // Definindo a rota base para políticos
 
-// Usando as rotas principais
-app.use('/api', mainRoutes);
-
-// Rota padrão
-app.get('/', (req, res) => {
-    res.send('API funcionando!');
-});
-
-// Iniciando o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
 });
